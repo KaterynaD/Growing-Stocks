@@ -1,0 +1,22 @@
+version: 2
+sources:
+  - name: stocks
+    database: mytest_db
+    schema: stocks
+    tables:
+      - name: ohlc_staging
+    quoting:
+      database: False
+      schema: False
+      identifier: False
+
+models:
+  - name: growingstocks
+    config:
+      materialized: incremental
+      LThreshold: "{{ var('LThreshold') }}"
+      HThreshold: "{{ var('HThreshold') }}"
+  - name: ohlc      
+    config:  
+      materialized: incremental
+      unique_key: ["ticker","date"]

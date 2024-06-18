@@ -1,0 +1,29 @@
+[0m12:55:01.749191 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f9c7645ac80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f9c7517bd60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f9c74cd7130>]}
+
+
+============================== 12:55:01.752371 | 13341db6-0b9f-41c5-a6e0-24dbc552bde2 ==============================
+[0m12:55:01.752371 [info ] [MainThread]: Running with dbt=1.8.2
+[0m12:55:01.752936 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'fail_fast': 'False', 'log_path': 'logs', 'version_check': 'True', 'profiles_dir': '/home/kdlab1/.dbt', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'log_format': 'default', 'static_parser': 'True', 'introspect': 'True', 'warn_error_options': 'WarnErrorOptions(include=[], exclude=[])', 'target_path': 'None', 'invocation_command': 'dbt init', 'send_anonymous_usage_stats': 'True'}
+[0m12:56:40.836487 [debug] [MainThread]: Starter project path: /home/kdlab1/Projects/DataEngineering/airflow/dags/GrowingStocks/.venv/lib/python3.10/site-packages/dbt/include/starter_project
+[0m12:56:40.841035 [info ] [MainThread]: 
+Your new dbt project "dbtGrowingStockModules" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m12:56:40.841544 [info ] [MainThread]: Setting up your profile.
+[0m12:58:00.762008 [info ] [MainThread]: Profile dbtGrowingStockModules written to /home/kdlab1/.dbt/profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m12:58:00.764831 [debug] [MainThread]: Resource report: {"command_name": "init", "command_success": true, "command_wall_clock_time": 179.06218, "process_user_time": 2.091436, "process_kernel_time": 0.134421, "process_mem_max_rss": "179884", "process_out_blocks": "88", "process_in_blocks": "0"}
+[0m12:58:00.767278 [debug] [MainThread]: Command `dbt init` succeeded at 12:58:00.766946 after 179.06 seconds
+[0m12:58:00.768396 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f9c7645ac80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f9c7517ae00>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x7f9c74b522c0>]}
+[0m12:58:00.769303 [debug] [MainThread]: Flushing usage events
