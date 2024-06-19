@@ -5,11 +5,13 @@ from datetime import datetime
 
 def model(dbt, session):
 
-    LThreshold=int(dbt.config.get("LThreshold"))
-    HThreshold=int(dbt.config.get("HThreshold"))
+    dbt.config(materialized="incremental")
 
-    ohlc_data=dbt.source("stocks", "ohlc_staging")  
-   
+    LThreshold = int(dbt.config.get("LThreshold"))
+    HThreshold = int(dbt.config.get("HThreshold"))
+
+    ohlc_data = dbt.source("stocks", "ohlc_staging")  
+    loaddate = datetime.today().replace(microsecond=0)
 
     def ChangePoint(xClose, xDate):
         try:
@@ -43,13 +45,11 @@ def model(dbt, session):
     for t in Tickers: 
         ohlc_df = ohlc_data.filter(f"TICKER='{t}'").to_pandas()
 
-        Openinterest_d={'Ticker':t}
+        Openinterest_d={"TICKER":t}
         ChangePointL, Pct_Mean_ChngL, idx_ChangePointL = ChangePoint(ohlc_df['ADJCLOSE'].iloc[-LThreshold:],ohlc_df['DATE'].iloc[-LThreshold:])
         ChangePointH, Pct_Mean_ChngH, idx_ChangePointH = ChangePoint(ohlc_df['ADJCLOSE'].iloc[-HThreshold:],ohlc_df['DATE'].iloc[-HThreshold:]) 
         Openinterest_d.update({"CHANGE_POINT_L":ChangePointL, "PCT_MEAN_CHNG_L": Pct_Mean_ChngL})
         Openinterest_d.update({"CHANGE_POINT_H":ChangePointH, "PCT_MEAN_CHNG_H": Pct_Mean_ChngH})
-        Openinterest_d.update({"PARAMS":f"HThreshold: {HThreshold}, LThreshold: {LThreshold}"})
-        Openinterest_d.update({"LOADDATE":datetime.now()})
         Openinterest_l.append(Openinterest_d)
 
     
@@ -57,7 +57,8 @@ def model(dbt, session):
     #final data frame
     final_df=pd.DataFrame(Openinterest_l)
     final_df=final_df[((final_df["PCT_MEAN_CHNG_H"]>0) & (final_df["PCT_MEAN_CHNG_L"]<0))]
-
+    final_df["PARAMS"] = f"HThreshold: {HThreshold}, LThreshold: {LThreshold}"
+    final_df["LOADDATE"] = loaddate
 
     final_sdf=session.create_dataframe(final_df)
 
